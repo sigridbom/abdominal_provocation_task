@@ -91,3 +91,4 @@ def run_tutorial(tutorial_data_list, participant_id, win = None):
     # outro from tutorial text
     show_text_screen(break_text1, allow_skip=True, win = win) 
 
+    return tutorial_data_list

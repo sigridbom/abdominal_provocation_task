@@ -344,7 +344,7 @@ def run_provocation_phase_with_timing(text, max_duration, background_color=None,
 
     return actual_duration, start_time.strftime("%H:%M:%S"), end_time.strftime("%H:%M:%S")
 
-def save_data(participant_id, experiment_data, tutorial_data, exp_start, exp_end):
+def save_data(participant_id, tutorial_data, experiment_data, exp_start, exp_end):
     # Append the end-of-experiment questions as a summary row
     # end_row = {
     #     "participant_ID": participant_id,
@@ -360,6 +360,7 @@ def save_data(participant_id, experiment_data, tutorial_data, exp_start, exp_end
     else:
         all_data = experiment_data
 
+    #all_data = experiment_data
     df = pd.DataFrame(all_data)
 
     #here
