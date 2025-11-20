@@ -4,7 +4,7 @@ import pygame
 
 ###### ----------------- setting variables ------------------ ######
 
-trials_number = 2  # trial number in total - must be an even number for balanced randomization
+trials_number = 0  # trial number in total - must be an even number for balanced randomization
 exp_provoke_duration = 60  # maximum duration for the provocation phase in the experiment in seconds
 tutorial_provoke_duration = 30  # duration for the provocation phase in the tutorial in seconds
 tutorial_trial_types = ["hands", "abdominal"]  # for the tutorial, we only use one of each type and we start with hands

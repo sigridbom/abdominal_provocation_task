@@ -147,12 +147,12 @@ questions_other_sensation = [
 
 questions_other_sensation_location = [
     {"question": "Hvor i din krop kunne du mærke denne fornemmelse?",
-    "labels": "Skriv dit svar her:",
+    "labels": "Skriv dit svar her",
     "type": "hands_localization",
     "scale": "FREE_TEXT"
     },
     {"question": "Hvor i din krop kunne du mærke denne fornemmelse?",
-        "labels": "Skriv dit svar her:",
+        "labels": "Skriv dit svar her",
         "type": "abdominal_localization",
         "scale": "FREE_TEXT"
     }
@@ -192,13 +192,13 @@ questions_end_abdominal = [
 
 questions_end = [
     {
-        "question": "Hvor svær synes du, opgaven var?",
+        "question": "Hvor svær, synes du, opgaven var?",
         "labels": ["Ikke svær", "Meget svær"],
         "type": "difficulty",
         "scale": "VAS"
     },
     {
-        "question": "Hvor ubehagelig synes du, opgaven var?",
+        "question": "Hvor ubehagelig, synes du, opgaven var?",
         "labels": ["Ikke ubehagelig", "Meget ubehagelig"],
         "type": "discomfort",
         "scale": "VAS"

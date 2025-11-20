@@ -251,6 +251,45 @@ def show_rating(question, labels, scale_type="VAS", win = None):
     else:
         raise ValueError(f"Unknown scale_type: {scale_type}")
 
+def run_question_block(question_list, win):
+    """
+    Presents each question in question_list and returns a dict containing
+    ratings and RTs under keys '<type>' and '<type>_rt'.
+
+    Parameters
+    ----------
+    question_list : list of dict
+        Must include 'question', 'labels', 'type', and 'scale'.
+
+    win : PsychoPy window
+
+    Returns
+    -------
+    dict
+        {'<type>': rating, '<type>_rt': rt}
+    """
+
+    results = {}
+
+    for q in question_list:
+        rating, rt = show_rating(
+            q["question"],
+            q["labels"],
+            scale_type=q.get("scale", "VAS"),
+            win=win
+        )
+
+        qtype = q["type"]
+        results[qtype] = rating
+        results[f"{qtype}_rt"] = rt
+
+        if rt is not None:
+            print(f"Response: {qtype} = {rating}, RT = {rt:.3f}s")
+        else:
+            print(f"Response: {qtype} = {rating}, RT = None")
+
+    return results
+
 
 def run_provocation_phase_with_timing(text, max_duration, background_color=None, win = None):
     """
@@ -305,16 +344,16 @@ def run_provocation_phase_with_timing(text, max_duration, background_color=None,
 
     return actual_duration, start_time.strftime("%H:%M:%S"), end_time.strftime("%H:%M:%S")
 
-def save_data(participant_id, experiment_data, tutorial_data, question_ratings_end, exp_start, exp_end):
+def save_data(participant_id, experiment_data, tutorial_data, exp_start, exp_end):
     # Append the end-of-experiment questions as a summary row
-    end_row = {
-        "participant_ID": participant_id,
-        "trial_number": "end",
-        "trial_type": "end_questions"
-    }
+    # end_row = {
+    #     "participant_ID": participant_id,
+    #     "trial_number": "end",
+    #     "trial_type": "end_questions"
+    # }
 
-    end_row.update(question_ratings_end)
-    experiment_data.append(end_row)
+    # #end_row.update(question_ratings_end)
+    # experiment_data.append(end_row)
 
     if save_tutorial_data:
         all_data = tutorial_data + experiment_data

@@ -57,6 +57,10 @@ def run_experiment(experiment_data_list, participant_id, trial_types, win = None
     
             print(f"Response [{trial_type}]: {idx['type']} = {rating}, RT = {rt:.3f}s")
 
+        # Collect trial questions using the generic helper - to replace aobve
+        #question_ratings = run_question_block(questions_exp[trial_type], win)
+
+
         # Prepare trial data dictionary
         trial_data = {
             "participant_ID": participant_id,
@@ -72,5 +76,150 @@ def run_experiment(experiment_data_list, participant_id, trial_types, win = None
         experiment_data_list.append(trial_data)
 
         show_text_screen(break_text0, wait_time=random_break, win = win)  # ITI
+
+    
+    # ============================
+    # END-OF-EXPERIMENT QUESTIONS
+    # ============================
+    # Collect end-of-experiment questions
+    question_ratings_end = {}
+
+    # ------------------------------
+    # 1a. Manipulation check #1: Hands
+    # ------------------------------
+    hands_mc_list = [q for q in questions_manipulation_check if "hands" in q["type"]]
+    hands_mc_results = run_question_block(hands_mc_list, win)
+    question_ratings_end.update(hands_mc_results)
+
+    # get rating
+    hands_mc_rating = hands_mc_results["hands_sensation"]
+
+    # ------------------------------
+    # 1b. Hands intensity (conditional)
+    # ------------------------------
+
+    intensity_hands = [q for q in questions_intensity if "hands" in q["type"]]
+    
+    if hands_mc_rating == "Ja":
+        intensity_results = run_question_block(intensity_hands, win)
+    else:
+        intensity_results = {
+            intensity_hands[0]["type"]: None,
+            f"{intensity_hands[0]['type']}_rt": None
+        }
+
+    question_ratings_end.update(intensity_results)
+
+    # ------------------------------
+    # 2a. Manipulation check #2: Hands other sensation 
+    # ------------------------------
+
+    hands_other_list = [q for q in questions_other_sensation if "hands" in q["type"]]
+    hands_other_results = run_question_block(hands_other_list, win)
+    question_ratings_end.update(hands_other_results)
+
+    # get rating
+    rating = hands_other_results["hands_sensation_other"]
+
+    # ------------------------------
+    # 2b. Hands other sensation location (conditional)
+    # ------------------------------
+
+    hands_location = [q for q in questions_other_sensation_location if "hands" in q["type"]]
+
+    if rating == "Ja":
+        location_results = run_question_block(hands_location, win)
+    else:
+        location_results = {
+            hands_location[0]["type"]: None,
+            f"{hands_location[0]['type']}_rt": None
+        }
+
+    question_ratings_end.update(location_results)
+
+    # ------------------------------
+    # 3. End of experiment questions: Hands
+    # ------------------------------
+
+    end_hands_results = run_question_block(questions_end_hands, win)
+    question_ratings_end.update(end_hands_results) 
+
+    # ------------------------------
+    # 4a.  Manipulation check #1: Abdominal
+    # ------------------------------
+
+    abdominal_mc_list = [q for q in questions_manipulation_check if "abdominal" in q["type"]]
+    abdominal_mc_results = run_question_block(abdominal_mc_list, win)
+    question_ratings_end.update(abdominal_mc_results)
+
+    # get rating
+    abdominal_mc_rating = abdominal_mc_results["abdominal_sensation"]
+    print(abdominal_mc_rating)
+
+    # ------------------------------
+    # 4b. Abdominal intensity (conditional)
+    # ------------------------------
+
+    intensity_abdominal = [q for q in questions_intensity if "abdominal" in q["type"]]
+
+    if abdominal_mc_rating == "Ja":
+        intensity_results = run_question_block(intensity_abdominal, win)
+    else:
+        intensity_results = {
+            intensity_abdominal[0]["type"]: None,
+            f"{intensity_abdominal[0]['type']}_rt": None
+        }
+
+    question_ratings_end.update(intensity_results)
+
+    # ------------------------------
+    # 5a. Manipulation check #2: Abdominal other sensation 
+    # ------------------------------
+    abdominal_other_list = [q for q in questions_other_sensation if "abdominal" in q["type"]]
+    abdominal_other_results = run_question_block(abdominal_other_list, win)
+    question_ratings_end.update(abdominal_other_results)
+
+    # get rating
+    rating = abdominal_other_results["abdominal_sensation_other"]
+
+    # ------------------------------
+    # 5b. Abdomnial other sensation location (conditional)
+    # ------------------------------
+
+    abdominal_location = [q for q in questions_other_sensation_location if "abdominal" in q["type"]]
+
+    if rating == "Ja":
+        location_results = run_question_block(abdominal_location, win)
+    else:
+        location_results = {
+            abdominal_location[0]["type"]: None,
+            f"{abdominal_location[0]['type']}_rt": None
+        }
+
+    question_ratings_end.update(location_results)
+
+    # ------------------------------
+    # 6. End of experiment questions: Abdominal
+    # ------------------------------
+
+    end_abdominal_results = run_question_block(questions_end_abdominal, win)
+    question_ratings_end.update(end_abdominal_results) 
+
+    # ------------------------------
+    # 7. Experience questions
+    # ------------------------------
+
+    exp_questions = run_question_block(questions_end, win)
+    question_ratings_end.update(exp_questions)
+
+    # ------------------------------
+    # Save into experiment_data_list
+    # ------------------------------
+    experiment_data_list.append({
+        "participant_ID": participant_id,
+        "trial_number": end,
+        "trial_type": "end_questions",
+        **question_ratings_end
+        })
 
     return(experiment_data_list)
