@@ -3,21 +3,19 @@ from helper_functions import *
 from instructions import *
 from parameters import *
 
-def run_experiment(experiment_data_list, participant_id, win = None):
+def run_experiment(win = None):
     """
     Runs the main experiment, displaying text screens (with or without countdowns),
     and collecting VAS ratings for each trial type.
 
     Parameters:
-    - experiment_data_list (list): List to store trial data.
-    - participant_id (str): From input variable
-    - trial_types (list): List of trial types for the experiment, randomized by other function
     - win: PsychoPy window object, is passed when function is called
     
     Returns:
     - experiment_data_list (list): Updated list with trial data.
     """
 
+    experiment_data_list = []
     trial_types = generate_trials(trials_number)
 
     show_text_screen(break_text3, wait_time=3, win = win)
@@ -65,7 +63,6 @@ def run_experiment(experiment_data_list, participant_id, win = None):
 
         # Prepare trial data dictionary
         trial_data = {
-            "participant_ID": participant_id,
             "trial_number": i + 1,
             "trial_type": trial_type,
             "provocation_duration_sec": duration_sec,
@@ -217,7 +214,6 @@ def run_experiment(experiment_data_list, participant_id, win = None):
     # Save into experiment_data_list
     # ------------------------------
     experiment_data_list.append({
-        "participant_ID": participant_id,
         "trial_number": "end",
         "trial_type": "end_questions",
         **question_ratings_end

@@ -21,7 +21,6 @@ default_color = "grey"
 save_tutorial_data = True  # Set to True if you want to save tutorial data, False otherwise
 
 
-
 # Define keys
 SPACE_KEY = 'space'
 ESC_KEY = 'escape'

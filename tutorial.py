@@ -4,13 +4,14 @@ from parameters import *
 from datetime import datetime
 #from psychopy import visual, core, event, sound
 
-def run_tutorial(tutorial_data_list, participant_id, win = None):
+def run_tutorial(win = None):
     """
     Displays tutorial text screens and runs practice trials for each trial type.
 
     Parameters:
     - tutorial_data_list (list): List to store data.
     """
+    tutorial_data_list = []
     tutorial_start_time = datetime.now().strftime("%H:%M:%S")
 
     for i, text in enumerate(tutorial_texts):
@@ -72,7 +73,6 @@ def run_tutorial(tutorial_data_list, participant_id, win = None):
         if save_tutorial_data:
             # Prepare trial data dictionary
             trial_data = {
-                "participant_ID": participant_id,
                 "trial_number": (f"tutorial_{trial_type}_{i + 1}"),
                 "trial_type": trial_type,
                 "provocation_duration_sec": duration_sec,

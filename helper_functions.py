@@ -344,7 +344,7 @@ def run_provocation_phase_with_timing(text, max_duration, background_color=None,
 
     return actual_duration, start_time.strftime("%H:%M:%S"), end_time.strftime("%H:%M:%S")
 
-def save_data(participant_id, tutorial_data, experiment_data, exp_start, exp_end):
+def save_data(participant_id, group, tutorial_data, experiment_data, exp_start, exp_end):
     # Append the end-of-experiment questions as a summary row
     # end_row = {
     #     "participant_ID": participant_id,
@@ -363,8 +363,6 @@ def save_data(participant_id, tutorial_data, experiment_data, exp_start, exp_end
     #all_data = experiment_data
     df = pd.DataFrame(all_data)
 
-    #here
-
     # Fix rating column types: convert floats that represent integers
     for col in df.columns:
         if col.endswith("_rt"):
@@ -382,6 +380,13 @@ def save_data(participant_id, tutorial_data, experiment_data, exp_start, exp_end
     df["experiment_date"] = exp_start.strftime("%Y-%m-%d")
     df["experiment_start_time"] = exp_start.strftime("%H:%M:%S")
     df["experiment_end_time"] = exp_end.strftime("%H:%M:%S")
+    df['participant_id'] = participant_id
+    df['group'] = group
+
+    # rearrange columns
+    first_columns = ['participant_id', 'group', 'experiment_date', 'experiment_start_time', 'experiment_end_time']
+    new_order = first_columns + [col for col in df.columns if col not in first_columns]
+    df = df.reindex(columns=new_order)
 
     # Ensure 'data' directory exists
     data_folder = "data"
@@ -389,7 +394,7 @@ def save_data(participant_id, tutorial_data, experiment_data, exp_start, exp_end
         os.makedirs(data_folder)
 
     # Save DataFrame to CSV
-    filename = f"recordID_{participant_id}_provocation_{timestamp}.csv"
+    filename = f"recordid_{participant_id}_{group}_provocation_{timestamp}.csv"
     filepath = os.path.join(data_folder, filename)
     df.to_csv(filepath, index=False)
     print(f"Data saved to {filename}")
