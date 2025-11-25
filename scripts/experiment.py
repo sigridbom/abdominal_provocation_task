@@ -27,13 +27,10 @@ def run_experiment(id, group, tutorial_data, win = None):
         phases = trial_templates[trial_type]
 
         # get color
-        bg_color = trial_colors[trial_type]  # Get the trial-specific color
+        bg_color = trial_colors[trial_type]  
 
-
-        # Show anticipation, provocation, recovery
+        # Show anticipation, 
         show_text_with_countdown(phases["anticipation"], countdown_seconds=anticipation_duration, background_color=bg_color, win = win)
-
-        #show_text_with_countdown(phases["provocation"], countdown_seconds=60, allow_skip=True, background_color=bg_color)
 
         # Run provocation and record timing
         duration_sec, start_time, end_time = run_provocation_phase_with_timing(
@@ -42,40 +39,28 @@ def run_experiment(id, group, tutorial_data, win = None):
             background_color=bg_color,
             win = win
         )
-
         print(f"Trial {i+1} — {trial_type.capitalize()} Duration: {duration_sec} seconds")
 
+        # Show recovery screen
         show_text_screen(phases["recovery"], wait_time=recovery_duration, win = win)
 
-        # questions
-        question_ratings = {}
-        for idx in questions_exp[trial_type]:
-            rating, rt = show_rating(idx["question"], idx["labels"], scale_type=idx.get("scale", "VAS"), win = win)
-            # Save rating and RT separately
-            question_ratings[idx["type"]] = rating
-            question_ratings[f"{idx['type']}_rt"] = rt
-    
-            print(f"Response [{trial_type}]: {idx['type']} = {rating}, RT = {rt:.5f}s")
-
-        # Collect trial questions using the generic helper - to replace aobve
-        #question_ratings = run_question_block(questions_exp[trial_type], win)
-
+        # Collect per trial questions
+        question_ratings = run_question_block(questions_exp[trial_type], win)
 
         # Prepare trial data dictionary
         trial_data = {
             "trial_number": i + 1,
             "trial_type": trial_type,
-            "provocation_duration_sec": duration_sec,
-            "provocation_start_time": start_time,
-            "provocation_end_time": end_time
+            "provocation_duration_sec": duration_sec
+        #    "provocation_start_time": start_time,
+        #    "provocation_end_time": end_time
         }
 
         # Add ratings to trial data
         trial_data.update(question_ratings)
         experiment_data_list.append(trial_data)
 
-        show_text_screen(break_text0, wait_time=random_break, win = win)  # ITI
-
+        show_text_screen(break_text0, wait_time=random_break, win = win)  # intertrial interval
     
     # ============================
     # END-OF-EXPERIMENT QUESTIONS
@@ -152,7 +137,6 @@ def run_experiment(id, group, tutorial_data, win = None):
 
     # get rating
     abdominal_mc_rating = abdominal_mc_results["abdominal_sensation"]
-    print(abdominal_mc_rating)
 
     # ------------------------------
     # 4b. Abdominal intensity (conditional)
@@ -179,7 +163,7 @@ def run_experiment(id, group, tutorial_data, win = None):
 
     # get rating
     rating = abdominal_other_results["abdominal_sensation_other"]
-    print(rating)
+   
     # ------------------------------
     # 5b. Abdomnial other sensation location (conditional)
     # ------------------------------
@@ -219,7 +203,6 @@ def run_experiment(id, group, tutorial_data, win = None):
         **question_ratings_end
         })
     
-
     experiment_end = datetime.now()
 
     save_data(
@@ -232,5 +215,3 @@ def run_experiment(id, group, tutorial_data, win = None):
 
     #End screen
     show_text_screen(end_text, allow_skip=True, win = win)
-
-    #return experiment_data_list

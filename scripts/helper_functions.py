@@ -11,9 +11,16 @@ def check_for_quit(keys, win):
         core.quit()
 
 def generate_trials(num_trials):
+    """
+    Generates a balanced random sequence of trial types ('abdominal' and 'hands'), so that there's never more than two of the same type in a row.
+
+    Parameters:
+    - num_trials (int): Total number of trials (must be even).
+    Returns:
+    - list of str: Randomized trial types.
+    """
     assert num_trials % 2 == 0, "Number of trials must be even."
 
-    # Initial balanced list
     trial_types = ["abdominal", "hands"] * (num_trials // 2)
 
     valid = False
@@ -29,6 +36,16 @@ def generate_trials(num_trials):
 
 
 def show_text_screen(text, wait_time=None, allow_skip=False, background_color=None, win = None):
+    """
+    Shows text on the screen for a specified time or until spacebar is pressed.
+
+    Parameters:
+    - text (str): Text to display.
+    - wait_time (int or None): Time in seconds to wait before proceeding. If None, waits indefinitely.
+    - allow_skip (bool): If True, allows skipping by pressing spacebar
+    - background_color (str): Background color for the screen.
+    - win : PsychoPy window
+    """
     if background_color:
         win.color = background_color
     else:
@@ -51,6 +68,16 @@ def show_text_screen(text, wait_time=None, allow_skip=False, background_color=No
 
 
 def show_text_with_countdown(text, countdown_seconds, allow_skip=False, background_color=None, win = None):
+    """
+    Shows text on the screen with countdown timer.
+
+    Parameters:
+    - text (str): Text to display.
+    - countdown_seconds (int): Total countdown time in seconds.
+    - allow_skip (bool): If True, allows skipping by pressing spacebar
+    - background_color (str): Background color for the screen.
+    - win : PsychoPy window
+    """
     if background_color:
         win.color = background_color
     else:
@@ -81,11 +108,15 @@ def show_text_with_countdown(text, countdown_seconds, allow_skip=False, backgrou
 def show_rating(question, labels, scale_type="VAS", win = None):
     """
     Displays a rating or free-text response depending on scale_type.
+    Parameters:
+        question (str): The question to display.
+        labels (list of str): Labels for the scale.
+        scale_type (str): One of "VAS", "NRS", "BINARY", "MULTIPLE", "FREE_TEXT".
+        win : PsychoPy window
     Returns:
-        response (float, int, or str)
-        response_time (float, seconds)
+        response/rating (float, int, or str)
+        reaction time (float, seconds)
     """
-
     scale_type = scale_type.upper()
     response_clock = core.Clock()
     response_clock.reset()
@@ -182,8 +213,7 @@ def show_rating(question, labels, scale_type="VAS", win = None):
                     response = '0'
                 #response = val  # directly take the label
         rt = round(response_clock.getTime(), 5)
-        print(f"response: {response}")  # debug
-        print(f'type:', type(response))  # debug
+        
         return response, rt
 
 
@@ -271,7 +301,7 @@ def run_question_block(question_list, win):
 
     Returns
     -------
-    dict
+    dict (results)
         {'<type>': rating, '<type>_rt': rt}
     """
 
@@ -305,6 +335,11 @@ def run_provocation_phase_with_timing(text, max_duration, background_color=None,
     - text (str): Instruction text displayed during provocation.
     - max_duration (int): Maximum duration of provocation in seconds.
     - background_color (str): Background color for the screen.
+    - win : PsychoPy window
+    Returns:
+    - actual_duration (float): Actual duration of provocation in seconds
+    - start_time (str): Start time as HH:MM:SS
+    - end_time (str): End time as HH:MM:SS
     """
     if background_color:
         win.color = background_color
@@ -351,15 +386,16 @@ def run_provocation_phase_with_timing(text, max_duration, background_color=None,
     return actual_duration, start_time.strftime("%H:%M:%S"), end_time.strftime("%H:%M:%S")
 
 def save_data(participant_id, group, tutorial_data, experiment_data, exp_start, exp_end):
-    # Append the end-of-experiment questions as a summary row
-    # end_row = {
-    #     "participant_ID": participant_id,
-    #     "trial_number": "end",
-    #     "trial_type": "end_questions"
-    # }
-
-    # #end_row.update(question_ratings_end)
-    # experiment_data.append(end_row)
+    '''
+    Saves the combined tutorial and experiment data to a CSV file with metadata.
+    Parameters:
+    - participant_id (str): Participant identifier.
+    - group (str): Participant group.
+    - tutorial_data (list of dict): Data from the tutorial phase.
+    - experiment_data (list of dict): Data from the experiment phase.
+    - exp_start (datetime): Experiment start time.
+    - exp_end (datetime): Experiment end time.    
+    '''
 
     if save_tutorial_data:
         all_data = tutorial_data + experiment_data
@@ -379,7 +415,6 @@ def save_data(participant_id, group, tutorial_data, experiment_data, exp_start, 
             if all(float(v).is_integer() for v in col_values):
                 df[col] = df[col].astype("Int64")  # Nullable integer
 
-    # to here
     timestamp = exp_start.strftime('%Y%m%d_%H%M')
 
     # Add metadata columns
@@ -394,7 +429,6 @@ def save_data(participant_id, group, tutorial_data, experiment_data, exp_start, 
     new_order = first_columns + [col for col in df.columns if col not in first_columns]
     df = df.reindex(columns=new_order)
 
-
     # Determine path one level above the current script
     base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
@@ -402,11 +436,6 @@ def save_data(participant_id, group, tutorial_data, experiment_data, exp_start, 
     data_folder = os.path.join(base_dir, "data")
     if not os.path.exists(data_folder):
         os.makedirs(data_folder)
-
-    # # Ensure 'data' directory exists
-    # data_folder = "data"
-    # if not os.path.exists(data_folder):
-    #     os.makedirs(data_folder)
 
     # Save DataFrame to CSV
     filename = f"recordid_{participant_id}_{group}_provocation_{timestamp}.csv"
