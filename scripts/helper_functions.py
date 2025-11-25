@@ -394,10 +394,19 @@ def save_data(participant_id, group, tutorial_data, experiment_data, exp_start, 
     new_order = first_columns + [col for col in df.columns if col not in first_columns]
     df = df.reindex(columns=new_order)
 
-    # Ensure 'data' directory exists
-    data_folder = "data"
+
+    # Determine path one level above the current script
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+
+    # Ensure 'data' directory exists one level above
+    data_folder = os.path.join(base_dir, "data")
     if not os.path.exists(data_folder):
         os.makedirs(data_folder)
+
+    # # Ensure 'data' directory exists
+    # data_folder = "data"
+    # if not os.path.exists(data_folder):
+    #     os.makedirs(data_folder)
 
     # Save DataFrame to CSV
     filename = f"recordid_{participant_id}_{group}_provocation_{timestamp}.csv"
