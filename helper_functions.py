@@ -120,9 +120,9 @@ def show_rating(question, labels, scale_type="VAS", win = None):
             keys = event.getKeys()
             check_for_quit(keys, win)
             if slider.getRating() is not None:
-                response = slider.getRating()
+                response = round(slider.getRating(), 5)
 
-        rt = response_clock.getTime()
+        rt = round(response_clock.getTime(), 5)
         return response, rt
 
     # ------------------- NRS -------------------
@@ -151,7 +151,7 @@ def show_rating(question, labels, scale_type="VAS", win = None):
             if slider.getRating() is not None:
                 response = slider.getRating()
 
-        rt = response_clock.getTime()
+        rt = round(response_clock.getTime(), 5)
         return response, rt
 
     # ------------------- BINARY -------------------
@@ -176,8 +176,14 @@ def show_rating(question, labels, scale_type="VAS", win = None):
 
             val = slider.getRating()
             if val is not None:
-                response = val  # directly take the label
-        rt = response_clock.getTime()
+                if val == labels[0]: # if answer is first option: 'Ja'
+                    response = '1'
+                elif val == labels[1]: # if answer is second option: 'Nej'
+                    response = '0'
+                #response = val  # directly take the label
+        rt = round(response_clock.getTime(), 5)
+        print(f"response: {response}")  # debug
+        print(f'type:', type(response))  # debug
         return response, rt
 
 
@@ -200,7 +206,7 @@ def show_rating(question, labels, scale_type="VAS", win = None):
                 idx = int(slider.getRating())
                 response = labels[idx]  # return selected label
 
-        rt = response_clock.getTime()
+        rt = round(response_clock.getTime(), 5)
         return response, rt
 
     # ------------------- FREE_TEXT -------------------
@@ -245,7 +251,7 @@ def show_rating(question, labels, scale_type="VAS", win = None):
                     response = typed
                     break
 
-        rt = response_clock.getTime()
+        rt = round(response_clock.getTime(), 5)
         return response, rt
 
     else:
@@ -284,7 +290,7 @@ def run_question_block(question_list, win):
         results[f"{qtype}_rt"] = rt
 
         if rt is not None:
-            print(f"Response: {qtype} = {rating}, RT = {rt:.3f}s")
+            print(f"Response: {qtype} = {rating}, RT = {rt:.5f}s")
         else:
             print(f"Response: {qtype} = {rating}, RT = None")
 
@@ -315,7 +321,7 @@ def run_provocation_phase_with_timing(text, max_duration, background_color=None,
     actual_duration = None
 
     while True:
-        elapsed = provocation_timer.getTime()
+        elapsed = round(provocation_timer.getTime(), 5)
         remaining = max_duration - elapsed
         if remaining <= 0:
             break

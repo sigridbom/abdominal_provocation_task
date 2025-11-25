@@ -55,7 +55,7 @@ def run_experiment(win = None):
             question_ratings[idx["type"]] = rating
             question_ratings[f"{idx['type']}_rt"] = rt
     
-            print(f"Response [{trial_type}]: {idx['type']} = {rating}, RT = {rt:.3f}s")
+            print(f"Response [{trial_type}]: {idx['type']} = {rating}, RT = {rt:.5f}s")
 
         # Collect trial questions using the generic helper - to replace aobve
         #question_ratings = run_question_block(questions_exp[trial_type], win)
@@ -98,7 +98,7 @@ def run_experiment(win = None):
 
     intensity_hands = [q for q in questions_intensity if "hands" in q["type"]]
     
-    if hands_mc_rating == "Ja":
+    if hands_mc_rating == '1': # if "Ja":
         intensity_results = run_question_block(intensity_hands, win)
     else:
         intensity_results = {
@@ -125,7 +125,7 @@ def run_experiment(win = None):
 
     hands_location = [q for q in questions_other_sensation_location if "hands" in q["type"]]
 
-    if rating == "Ja":
+    if rating == '1': # if "Ja":
         location_results = run_question_block(hands_location, win)
     else:
         location_results = {
@@ -160,7 +160,7 @@ def run_experiment(win = None):
 
     intensity_abdominal = [q for q in questions_intensity if "abdominal" in q["type"]]
 
-    if abdominal_mc_rating == "Ja":
+    if abdominal_mc_rating == '1': # if "Ja"
         intensity_results = run_question_block(intensity_abdominal, win)
     else:
         intensity_results = {
@@ -179,14 +179,14 @@ def run_experiment(win = None):
 
     # get rating
     rating = abdominal_other_results["abdominal_sensation_other"]
-
+    print(rating)
     # ------------------------------
     # 5b. Abdomnial other sensation location (conditional)
     # ------------------------------
 
     abdominal_location = [q for q in questions_other_sensation_location if "abdominal" in q["type"]]
 
-    if rating == "Ja":
+    if rating == '1': # if "Ja"
         location_results = run_question_block(abdominal_location, win)
     else:
         location_results = {

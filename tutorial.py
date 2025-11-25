@@ -55,19 +55,11 @@ def run_tutorial(win = None):
                             #    right_label = right_label,
                                 scale_type=scale_type,
                                 win= win)
-            
-            # # Convert discrete ratings (e.g., NRS) to integers only
-            # if idx.get("scale", "VAS") == "NRS" and rating is not None:
-            #     rating = int(round(rating))
-
-            # If rating is a float but represents a whole number, convert to int
-            # if isinstance(rating, float) and rating.is_integer():
-            #     rating = int(rating)
 
             question_ratings[idx["type"]] = rating
             question_ratings[f"{idx['type']}_rt"] = rt
 
-            print(f"Response [{trial_type}]: {idx['type']} = {rating}, RT = {rt:.3f}s")
+            print(f"Response [{trial_type}]: {idx['type']} = {rating}, RT = {rt:.5f}s")
 
 
         if save_tutorial_data:

@@ -11,7 +11,9 @@
 #-
 #-
 
-#------------------------- PACKAGES AND FUNCTIONS -------------------------#
+# ------------------------------
+#    PACKAGES AND FUNCTIONS
+# ------------------------------
 
 from helper_functions import *
 from instructions import *
@@ -33,6 +35,10 @@ g.addField('Participant (record ID):', required=True)
 g.addField('Group:', choices = ['HC', 'FAPD', 'IBD'], required=True)
 g.addField('Tutorial', initial = 'yes', choices = ['yes', 'no'], required=True)
 g.show()
+
+# Check whether the user pressed cancel
+if not g.OK:
+    core.quit()   # or sys.exit() if preferred
 
 participant_id = g.data[0]
 participant_group = g.data[1]

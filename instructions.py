@@ -1,7 +1,7 @@
 tutorial_texts = [
         "Velkommen til mave-spændings-eksperimentet. \n\nTryk på mellemrumstasten for at fortsætte.", # screen 1 
 
-        "I dette eksperiment skal du skiftevis knytte dine hænder\n eller spænde i dine mavemuskler. ", # screen 2
+        "I dette eksperiment skal du skiftevis knytte dine hænder\n eller spænde i dine mavemuskler.\n\nTryk på mellemrumstasten for at fortsætte.", # screen 2
         
         "Du skal knytte dine hænder eller spænde dine mavemuskler\n i et minut ad gangen.\n\n"
         "Hvis du ikke kan gøre det så længe, tryk på mellemrumstasten for at vise,\n at du er stoppet.\n\n"
