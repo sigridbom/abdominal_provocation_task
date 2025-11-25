@@ -3,7 +3,7 @@ from helper_functions import *
 from instructions import *
 from parameters import *
 
-def run_experiment(win = None):
+def run_experiment(id, group, tutorial_data, win = None):
     """
     Runs the main experiment, displaying text screens (with or without countdowns),
     and collecting VAS ratings for each trial type.
@@ -14,7 +14,7 @@ def run_experiment(win = None):
     Returns:
     - experiment_data_list (list): Updated list with trial data.
     """
-
+    experiment_start = datetime.now()
     experiment_data_list = []
     trial_types = generate_trials(trials_number)
 
@@ -219,7 +219,18 @@ def run_experiment(win = None):
         **question_ratings_end
         })
     
+
+    experiment_end = datetime.now()
+
+    save_data(
+        id,
+        group,
+        tutorial_data, 
+        experiment_data_list, 
+        experiment_start, 
+        experiment_end)
+
     #End screen
     show_text_screen(end_text, allow_skip=True, win = win)
 
-    return experiment_data_list
+    #return experiment_data_list
