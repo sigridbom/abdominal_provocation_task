@@ -56,16 +56,12 @@ questions_exp = {
             "scale": "NRS"
         },
         {
-            #"question": "Hvor stærkt var dit ønske om at undgå at spænde dine mavemuskler?",
-            #"labels": ["Ikke spor stærkt", "Meget stærkt"],
             "question": "Ville du gerne undgå at spænde dine mavemuskler?",
             "labels": ["Slet ikke", "Rigtig meget"],
             "type": "avoidance",
             "scale": "VAS"
         },
         {
-            #"question": "Hvor stærkt var dit ønske om at stoppe med at spænde mavemusklerne før tid?",
-            #"labels": ["Ikke spor stærkt", "Meget stærkt"],
             "question": "Ville du gerne stoppe med at spænde mavemusklerne før tid?",
             "labels": ["Slet ikke", "Rigtig meget"],
             "type": "leave_situation",
@@ -86,16 +82,12 @@ questions_exp = {
             "scale": "NRS"
         },
         {
-            #"question": "Hvor stærkt var dit ønske om at undgå at knytte dine hænder?",
-            #"labels": ["Ikke spor stærkt", "Meget stærkt"],
             "question": "Ville du gerne undgå at knytte dine hænder?",
             "labels": ["Slet ikke", "Rigtig meget"],
             "type": "avoidance",
             "scale": "VAS"
         },
         {
-           # "question": "Hvor stærkt var dit ønske om at stoppe med at knytte hænderne før tid?",
-           # "labels": ["Ikke spor stærkt", "Meget stærkt"],
             "question": "Ville du gerne stoppe med at knytte hænderne før tid?",
             "labels": ["Slet ikke", "Rigtig meget"],
             "type": "leave_situation",
@@ -160,8 +152,7 @@ questions_other_sensation_location = [
 
 questions_end_hands = [
     {
-        #"question": "Føles det at knytte dine hænder ligesom det, du normalt føler, før du får ondt?",
-        "question": "Nogen gange kan man mærke noget i kroppen, lige før man får ondt.\nFøles det at knytte dine hænder på samme måde?",
+        "question": "Nogle gange kan man mærke noget i kroppen, lige før man får ondt.\nFøles det at knytte dine hænder på samme måde?",
         "labels": ["Slet ikke", "Rigtig meget"],
         "type": "hands_similarity",
         "scale": "VAS"
@@ -176,8 +167,7 @@ questions_end_hands = [
 
 questions_end_abdominal = [
      {
-       # "question": "Føles det at spænde dine mavemuskler ligesom det, du normalt føler, før du får ondt?",
-        "question": "Nogen gange kan man mærke noget i kroppen, lige før man får ondt.\nFøles det at spænde maven på samme måde?",
+        "question": "Nogle gange kan man mærke noget i kroppen, lige før man får ondt.\nFøles det at spænde maven på samme måde?",
         "labels": ["Slet ikke", "Rigtig meget"],
         "type": "abdominal_similarity",
         "scale": "VAS"
