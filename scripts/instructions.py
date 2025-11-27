@@ -112,13 +112,13 @@ questions_manipulation_check = [
 ]
 
 questions_intensity= [
-    {"question": "Hvor kraftig var denne fornemmelse i dine hænder?",
-        "labels": ["Ikke spor kraftig", "Meget kraftig"],
+    {"question": "Hvor meget kunne du mærke dine hænder?",
+        "labels": ["Slet ikke", "Rigtig meget"],
         "type": "hands_intensity",
         "scale": "VAS"
     },
-    {"question": "Hvor kraftig var denne fornemmelse i din mave?",
-        "labels": ["Ikke spor kraftig", "Meget kraftig"],
+    {"question": "Hvor meget kunne du mærke din mave?",
+        "labels": ["Slet ikke", "Rigtig meget"],
         "type": "abdominal_intensity",
         "scale": "VAS"
     }
