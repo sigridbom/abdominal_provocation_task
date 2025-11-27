@@ -57,13 +57,13 @@ questions_exp = {
         },
         {
             "question": "Ville du gerne undgå at spænde dine mavemuskler?",
-            "labels": ["Slet ikke", "Rigtig meget"],
+            "labels": ["Slet ikke", "Rigtig gerne"],
             "type": "avoidance",
             "scale": "VAS"
         },
         {
             "question": "Ville du gerne stoppe med at spænde mavemusklerne før tid?",
-            "labels": ["Slet ikke", "Rigtig meget"],
+            "labels": ["Slet ikke", "Rigtig gerne"],
             "type": "leave_situation",
             "scale": "VAS"
         }
@@ -83,13 +83,13 @@ questions_exp = {
         },
         {
             "question": "Ville du gerne undgå at knytte dine hænder?",
-            "labels": ["Slet ikke", "Rigtig meget"],
+            "labels": ["Slet ikke", "Rigtig gerne"],
             "type": "avoidance",
             "scale": "VAS"
         },
         {
             "question": "Ville du gerne stoppe med at knytte hænderne før tid?",
-            "labels": ["Slet ikke", "Rigtig meget"],
+            "labels": ["Slet ikke", "Rigtig gerne"],
             "type": "leave_situation",
             "scale": "VAS"
         }
