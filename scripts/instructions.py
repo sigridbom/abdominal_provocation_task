@@ -125,12 +125,12 @@ questions_intensity= [
 ]
 
 questions_other_sensation = [
-    {"question": "Kunne du mærke noget et andet sted i din krop?",
+    {"question": "Kunne du mærke noget et andet sted i din krop,\n da du knyttede dine hænder?",
         "labels": ["Ja", "Nej"],
         "type": "hands_sensation_other",
         "scale": "BINARY"
     },
-    {"question": "Kunne du mærke noget et andet sted i din krop?",
+    {"question": "Kunne du mærke noget et andet sted i din krop,\n da du spændte dine mavemuskler?",
         "labels": ["Ja", "Nej"],
         "type": "abdominal_sensation_other",
         "scale": "BINARY"
